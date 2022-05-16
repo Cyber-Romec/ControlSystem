@@ -15,6 +15,14 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('profile.edit')" :active="request()->routeIs('profile.edit')">
+                        Profile
+                    </x-nav-link>
+                    @if((bool)Auth::user()->is_admin)
+                    <x-nav-link :href="route('admin.users')" :active="request()->routeIs('admin.users')">
+                        Users
+                    </x-nav-link>
+                    @endif
                 </div>
             </div>
 
@@ -66,6 +74,14 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('profile.edit')" :active="request()->routeIs('profile.edit')">
+                Profile
+            </x-responsive-nav-link>
+            @if((bool)Auth::user()->is_admin)
+                <x-responsive-nav-link :href="route('admin.users')" :active="request()->routeIs('admin.users')">
+                    Users
+                </x-responsive-nav-link>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->
