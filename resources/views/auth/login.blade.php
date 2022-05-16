@@ -39,8 +39,7 @@
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                
-
+                <a href="{{ route("register") }}">Register</a>
                 <x-button class="ml-3">
                     {{ __('Log in') }}
                 </x-button>
