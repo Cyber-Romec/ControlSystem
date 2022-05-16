@@ -25,7 +25,7 @@ class ProfileUpdateRequest extends FormRequest
     {
         return [
             "name" => "required|string|min:4",
-            "email" => "required|email|unique:users",
+            "email" => "required|email",
         ];
     }
 }
