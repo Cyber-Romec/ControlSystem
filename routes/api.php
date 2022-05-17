@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\CurrencyControllerApi;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,3 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get("/exchange", [CurrencyControllerApi::class, "getData"])->name("exchanges.names");
+
+Route::post("/test-post", [CurrencyControllerApi::class, "postData"]);

@@ -33,5 +33,5 @@ Route::group(["as" => "admin.","middleware" => ["auth", "admin"]], function(){
     Route::post("/user/store", [UserController::class, "store"])->name("user.store");
     Route::patch("/user/delete/{user:id}", [UserController::class, "destroy"])->name("user.delete");
 });
-
 require __DIR__.'/auth.php';
+require __DIR__.'/api.php';
