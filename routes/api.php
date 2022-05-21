@@ -18,6 +18,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get("/exchange", [CurrencyControllerApi::class, "getData"])->name("exchanges.names");
-
-Route::post("/test-post", [CurrencyControllerApi::class, "postData"]);
+Route::get("/currency/update", [CurrencyControllerApi::class, "updateCurrency"])->name("currency.update");
+Route::get("/currency", [CurrencyControllerApi::class, "index"])->name("currency.index");

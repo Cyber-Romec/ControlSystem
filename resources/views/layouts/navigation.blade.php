@@ -18,7 +18,7 @@
                     <x-nav-link :href="route('profile.edit')" :active="request()->routeIs('profile.edit')">
                         Profile
                     </x-nav-link>
-                    <x-nav-link :href="route('exchanges.names')" :active="request()->routeIs('exchanges.names')">
+                    <x-nav-link :href="route('currency.index')" :active="request()->routeIs('currency.index')">
                         Exchanges
                     </x-nav-link>
                     
@@ -81,7 +81,7 @@
             <x-responsive-nav-link :href="route('profile.edit')" :active="request()->routeIs('profile.edit')">
                 Profile
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('exchanges.names')" :active="request()->routeIs('exchanges.names')">
+            <x-responsive-nav-link :href="route('currency.index')" :active="request()->routeIs('currency.index')">
                 Exchanges
             </x-responsive-nav-link>
             
