@@ -14,7 +14,6 @@
             arrayCodes.forEach((code, index) =>
             {
                 array[index+1] = [code, parseFloat(arrayCourse[index]), "color: blue"];
-
             });
 
             function drawChart() {
@@ -29,9 +28,9 @@
                             2]);
     
             var options = {
-            title: "Currencies",
-            width: 700,
-            height: 2000,
+            title: "Стойност от различни валути",
+            width: 600,
+            height: 600,
             bar: {groupWidth: "95%"},
             legend: { position: "none" },
             };
@@ -39,53 +38,16 @@
             chart.draw(view, options);
           }
           </script>
-        {{-- <script>
-            window.onload = function () {
-            var arrayCodes = {!! json_encode($arrayCodes) !!};
-            var arrayCourse = {!! json_encode($arrayCourse) !!};
-            var array = {
-                dataPoint: [],
-            };
-            arrayCodes.forEach((code, index) =>
-            {
-                array.dataPoint.push({
-                    "y" : parseInt(arrayCourse[index]),
-                    "label" : code,
-                });
-                
-            });
-            console.log(array.dataPoint);
-            var chart = new CanvasJS.Chart("chartContainer", {
-                animationEnabled: true,
-                zoomEnabled:true,
-                title:{
-                    text:"Curruncies"
-                },
-                axisX:{
-                    interval: 1
-                },
-                axisY2:{
-                    interlacedColor: "rgba(1,77,101,.2)",
-                    gridColor: "rgba(1,77,101,.1)",
-                },
-                data: [{
-                    type: "bar",
-                    name: "companies",
-                    axisYType: "secondary",
-                    color: "#014D65",
-                    dataPoints: array.dataPoint,
-                }]
-            });
-            chart.render();
-            
-            }
-            </script> --}}
     @endpush
     <style>
        thead th { cursor: pointer; }
     </style>
     <div class="container">
         <div class="row d-flex justify-content-center">
+            <div class="col-auto">
+                <span data-href="/tasks" id="export" class="btn btn-success" onclick="exportTasks(event.target);">Export to CSV</span>
+                <span data-href="/toXls" id="export" class="btn btn-primary" onclick="exportTasks(event.target);">Export to XLS</span>
+            </div>
             <div class="col-auto">
                 <a class="btn btn-info mb-3" href="{{ route("currency.update")}}">update</a>
             </div>
@@ -119,17 +81,22 @@
                         @endforeach
                     </tbody>
                 </table>
+                {{$currencies->links()}}
             </div>
             <div class="col-6">
                 {{-- <div id="chartContainer" style="height: 100%; width: 100%;"></div> --}}
-                <div id="barchart_values" style="width: 900px; height: 300px;"></div>
+                <div id="barchart_values" style="width: 900px; height: 300px"></div>
             </div>
         </div>
     </div>
     @push("scripts")
         <script src="{{asset("js/tableFilter.js")}}"></script>
-        <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-
+        <script>
+            function exportTasks(_this) {
+               let _url = $(_this).data('href');
+               window.location.href = _url;
+            }
+         </script>
         <script>
             $(document).ready(function() {
 
@@ -142,6 +109,5 @@
             });
             
         </script>
-
     @endpush
 </x-app-layout>
