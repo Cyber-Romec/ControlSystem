@@ -45,7 +45,7 @@
     <div class="container">
         <div class="row d-flex justify-content-center">
             <div class="col-auto">
-                <span data-href="/tasks" id="export" class="btn btn-success" onclick="exportTasks(event.target);">Export to CSV</span>
+                <span data-href="/toCsv" id="export" class="btn btn-success" onclick="exportTasks(event.target);">Export to CSV</span>
                 <span data-href="/toXls" id="export" class="btn btn-primary" onclick="exportTasks(event.target);">Export to XLS</span>
             </div>
             <div class="col-auto">
@@ -57,6 +57,15 @@
         <div class="row">
             <div class="col-6">
                 <input type="text" class="form-control mb-3 tablesearch-input" data-tablesearch-table="#data-table"  placeholder="Search">
+                <form action="{{ route("currency.filter") }}" method="POST">
+                    @csrf
+                    <label>Филтриране по курс от-до</label>
+                    <div>
+                        <input type="number" min="0" step=".05" value="{{ old("from") }}" placeholder="От:" name="from">
+                        <input type="number" placeholder="До:" value="{{ old("to") }}" step=".05" name="to">
+                        <input type="submit" value="Filter" class="btn btn-info">
+                    </div>
+                </form>
                 <table id="data-table" class="table tablesearch-table table-bordered table-striped">
                     <thead>
                         <tr>
@@ -66,7 +75,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($currencies as $currency)
+                        @foreach (isset($filteredCurrencies) ? $filteredCurrencies : $currencies as $currency)
                             <tr>
                                 <td>
                                     {{$currency->currency_name}}
@@ -81,11 +90,13 @@
                         @endforeach
                     </tbody>
                 </table>
-                {{$currencies->links()}}
+                @if($currencies->links())
+                    {{$currencies->links()}}
+                @endif
             </div>
             <div class="col-6">
-                {{-- <div id="chartContainer" style="height: 100%; width: 100%;"></div> --}}
-                <div id="barchart_values" style="width: 900px; height: 300px"></div>
+                
+                 <div id="barchart_values" style="width: 900px; height: 300px"></div>
             </div>
         </div>
     </div>

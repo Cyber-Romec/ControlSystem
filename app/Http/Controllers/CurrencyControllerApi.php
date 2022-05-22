@@ -5,11 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use App\Models\Currency;
+use App\Http\Requests\FilterRequest;
 
 class CurrencyControllerApi extends Controller
 {
-    private $nowTakedCurrencies;
-
     public function updateCurrency(){
         $rates = Http::get('https://openexchangerates.org/api/latest.json?app_id=' . env("APP_ID"));
         $currencies = Http::get('https://openexchangerates.org/api/currencies.json?app_id=' . env("APP_ID"));
@@ -109,5 +108,20 @@ class CurrencyControllerApi extends Controller
         };
         
         return response()->stream($callback, 200, $headers);
+    }
+
+    public function filter(FilterRequest $request){
+    
+        $currencies = session("currencies")->whereBetween("course", [$request->from, $request->to]);
+
+        $codes = [];
+        $courses = [];
+
+        foreach($currencies as $code){
+            array_push($codes, $code->code);
+            array_push($courses, $code->course);
+        }
+        
+        return view("exchange", ["filteredCurrencies" => $currencies, "currencies" => session("currencies"), "arrayCodes" => $codes, "arrayCourse" => $courses]);
     }
 }

@@ -35,8 +35,8 @@ Route::group(["as" => "admin.","middleware" => ["auth", "admin"]], function(){
     Route::patch("/user/delete/{user:id}", [UserController::class, "destroy"])->name("user.delete");
 });
 
-Route::get('/tasks', [CurrencyControllerApi::class, "exportCsv"]);
+Route::get('/toCsv', [CurrencyControllerApi::class, "exportCsv"]);
 Route::get("/toXls", [CurrencyControllerApi::class, "exportXls"]);
-
+Route::post("/filter", [CurrencyControllerApi::class, "filter"])->name("currency.filter");
 require __DIR__.'/auth.php';
 require __DIR__.'/api.php';
