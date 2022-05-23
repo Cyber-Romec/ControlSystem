@@ -3,6 +3,9 @@
     </x-slot>
     @push("included_scripts")
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <style>
+       thead th { cursor: pointer; }
+    </style>
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         <script type="text/javascript">
             google.charts.load("current", {packages:["corechart"]});
@@ -18,7 +21,7 @@
 
             function drawChart() {
               var data = google.visualization.arrayToDataTable(array);
-        
+                console.log(array.length * 10);
             var view = new google.visualization.DataView(data);
             view.setColumns([0, 1,
                             { calc: "stringify",
@@ -30,7 +33,7 @@
             var options = {
             title: "Стойност от различни валути",
             width: 400,
-            height: 850,
+            height: array.length * 55.5,
             bar: {groupWidth: "95%"},
             legend: { position: "none" },
             };
@@ -38,10 +41,12 @@
             chart.draw(view, options);
           }
           </script>
+    
+    
+    
+    
     @endpush
-    <style>
-       thead th { cursor: pointer; }
-    </style>
+    
     <div class="container">
         <div class="row d-flex justify-content-center">
             <div class="col-auto">
@@ -63,11 +68,14 @@
                     <br>
                     <span class="blockquote-footer">Филтрирането показва резултат от всички записи в базата данни!</span>
                     <div>
-                        <input type="number" min="0" step=".05" placeholder="От:" name="from">
-                        <input type="number" placeholder="До:" step=".05" name="to">
+                        <input type="number" min="0" step=".05" value="{{ $from ?? "" }}" placeholder="От:" name="from">
+                        <input type="number" placeholder="До:" value="{{ $to ?? "" }}" step=".05" name="to">
                         <input type="submit" value="Filter" class="btn btn-info">
                     </div>
                 </form>
+                @if(request()->routeIs('currency.filter'))
+                    <a href="{{ route("currency.index") }}" class="btn btn-warning" >Reset</a>
+                @endif
                 <table id="data-table" class="table tablesearch-table table-bordered table-striped">
                     <thead>
                         <tr>
@@ -77,7 +85,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($currencies as $currency)
+                        @forelse ($currencies as $currency)
                             <tr>
                                 <td>
                                     {{$currency->currency_name}}
@@ -88,16 +96,22 @@
                                 <td>
                                     {{$currency->course}}
                                 </td>
-                            </tr>        
-                        @endforeach
+                            </tr>
+                        @empty       
+                            None
+                        @endforelse
                     </tbody>
                 </table>
-                {{$currencies->links()}}
             </div>
-            <div id="barchart_values" class="col-md-6">
+
+            <div id="barchart_values" class="col-md-6" >
                  
             </div>
+                
         </div>
+        @if(request()->routeIs("currency.index"))
+            {{$currencies->links()}}   
+        @endif
     </div>
     @push("scripts")
         <script src="{{asset("js/tableFilter.js")}}"></script>

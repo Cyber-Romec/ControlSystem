@@ -48,7 +48,7 @@ class CurrencyService{
             $file = fopen('php://output', 'w');
             fputcsv($file, $columns);
 
-            foreach ($currencies->items() as $currency) {
+            foreach ($currencies as $currency) {
                 $row['Currency Name']  = $currency->currency_name;
                 $row['Code']    = $currency->code;
                 $row['Course']    = $currency->course;
@@ -78,7 +78,7 @@ class CurrencyService{
             $file = fopen('php://output', 'w');
             fputcsv($file, $columns);
 
-            foreach ($currencies->items() as $currency) {
+            foreach ($currencies as $currency) {
                 $row['Currency Name']  = $currency->currency_name;
                 $row['Code']    = $currency->code;
                 $row['Course']    = $currency->course;
