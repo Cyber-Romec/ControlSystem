@@ -10,29 +10,35 @@
     @endif
     <form action="{{ route("admin.user.store") }}" method="POST">
         @csrf
-          <div class="container">
-              <div class="row">
-                  <div class="col-3">
-                      <label for="name">Name:</label>
-                      <br>
-                      <input type="text" name="name" class="form-input" value="{{ old("name") }}">
-                  </div>
-                <div class="col-3">
+          <div class="container form-group">
+            <div class="row d-flex justify-content-center">
+                <div class="col-auto">
+                    <label for="name">Name:</label>
+                    <br>
+                    <input type="text" name="name" class="form-input" value="{{ old("name") }}">
+                </div>
+            </div>
+            <div class="row d-flex justify-content-center">
+                <div class="col-auto">
                     <label for="email">Email:</label>
                     <br>
                     <input type="email" name="email" class="form-input" value="{{ old("email") }}">
                 </div>
-                <div class="col-3">
+            </div>
+            <div class="row d-flex justify-content-center">
+                <div class="col-auto">
                     <label for="name">Password:</label>
                     <br>
                     <input type="password" name="password" class="form-input">
                 </div>
-                <div class="col-3">
+            </div>
+            <div class="row d-flex justify-content-center">
+                <div class="col-auto">
                     <label for="name">Repeate password:</label>
                     <br>
                     <input type="password" name="repeated_password" class="form-input">
                 </div>
-            </div>
+            </div>  
           </div>
           <div class="row d-flex justify-content-center mt-4">
               <div class="col-auto">

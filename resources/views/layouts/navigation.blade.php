@@ -18,6 +18,10 @@
                     <x-nav-link :href="route('profile.edit')" :active="request()->routeIs('profile.edit')">
                         Profile
                     </x-nav-link>
+                    <x-nav-link :href="route('currency.index')" :active="request()->routeIs('currency.index')">
+                        Exchanges
+                    </x-nav-link>
+                    
                     @if((bool)Auth::user()->is_admin)
                     <x-nav-link :href="route('admin.users')" :active="request()->routeIs('admin.users')">
                         Users
@@ -77,6 +81,10 @@
             <x-responsive-nav-link :href="route('profile.edit')" :active="request()->routeIs('profile.edit')">
                 Profile
             </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('currency.index')" :active="request()->routeIs('currency.index')">
+                Exchanges
+            </x-responsive-nav-link>
+            
             @if((bool)Auth::user()->is_admin)
                 <x-responsive-nav-link :href="route('admin.users')" :active="request()->routeIs('admin.users')">
                     Users

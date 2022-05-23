@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CurrencyControllerApi;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,4 +35,8 @@ Route::group(["as" => "admin.","middleware" => ["auth", "admin"]], function(){
     Route::patch("/user/delete/{user:id}", [UserController::class, "destroy"])->name("user.delete");
 });
 
+Route::get('/toCsv', [CurrencyControllerApi::class, "exportCsv"]);
+Route::get("/toXls", [CurrencyControllerApi::class, "exportXls"]);
+Route::get("/filter", [CurrencyControllerApi::class, "filter"])->name("currency.filter");
 require __DIR__.'/auth.php';
+require __DIR__.'/api.php';
