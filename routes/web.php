@@ -37,6 +37,6 @@ Route::group(["as" => "admin.","middleware" => ["auth", "admin"]], function(){
 
 Route::get('/toCsv', [CurrencyControllerApi::class, "exportCsv"]);
 Route::get("/toXls", [CurrencyControllerApi::class, "exportXls"]);
-Route::post("/filter", [CurrencyControllerApi::class, "filter"])->name("currency.filter");
+Route::get("/filter", [CurrencyControllerApi::class, "filter"])->name("currency.filter");
 require __DIR__.'/auth.php';
 require __DIR__.'/api.php';

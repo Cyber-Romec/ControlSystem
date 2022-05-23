@@ -29,8 +29,8 @@
     
             var options = {
             title: "Стойност от различни валути",
-            width: 600,
-            height: 600,
+            width: 400,
+            height: 850,
             bar: {groupWidth: "95%"},
             legend: { position: "none" },
             };
@@ -53,16 +53,18 @@
             </div>
         </div>
     </div>
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-6">
-                <input type="text" class="form-control mb-3 tablesearch-input" data-tablesearch-table="#data-table"  placeholder="Search">
-                <form action="{{ route("currency.filter") }}" method="POST">
+            <div class="col-md-6">
+                <input type="text" class="form-control mb-3 tablesearch-input" data-tablesearch-table="#data-table"  placeholder="Търси по Валута, Код и Курс">
+                <form action="{{ route("currency.filter") }}" class="mb-3" method="GET">
                     @csrf
-                    <label>Филтриране по курс от-до</label>
+                    <label>Филтриране по курс от-до:</label>
+                    <br>
+                    <span class="blockquote-footer">Филтрирането показва резултат от всички записи в базата данни!</span>
                     <div>
-                        <input type="number" min="0" step=".05" value="{{ old("from") }}" placeholder="От:" name="from">
-                        <input type="number" placeholder="До:" value="{{ old("to") }}" step=".05" name="to">
+                        <input type="number" min="0" step=".05" placeholder="От:" name="from">
+                        <input type="number" placeholder="До:" step=".05" name="to">
                         <input type="submit" value="Filter" class="btn btn-info">
                     </div>
                 </form>
@@ -75,7 +77,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (isset($filteredCurrencies) ? $filteredCurrencies : $currencies as $currency)
+                        @foreach ($currencies as $currency)
                             <tr>
                                 <td>
                                     {{$currency->currency_name}}
@@ -90,13 +92,10 @@
                         @endforeach
                     </tbody>
                 </table>
-                @if($currencies->links())
-                    {{$currencies->links()}}
-                @endif
+                {{$currencies->links()}}
             </div>
-            <div class="col-6">
-                
-                 <div id="barchart_values" style="width: 900px; height: 300px"></div>
+            <div id="barchart_values" class="col-md-6">
+                 
             </div>
         </div>
     </div>
